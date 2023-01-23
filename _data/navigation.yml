@@ -1,13 +1,13 @@
 # main links
 main: 
-  - title : "Quick-test"
-    url : /tests/quick-start-guide/
-  - title : "About"
-    url : /about/
+  - title : "Home"
+    url : /
   - title : "Categories"
     url : /categories/
   - title : "Tags"
     url : /tags/
+  - title : "About"
+    url : /about/
 
 
 # documentation links
