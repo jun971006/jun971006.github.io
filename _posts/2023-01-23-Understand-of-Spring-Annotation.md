@@ -123,6 +123,26 @@ The injection point has the following annotations:
 <span style="color:blue;font-weight:bold">싱글톤</span>을 보장받기 위해서는 @Configuration Annotation과 함께 사용해야 합니다.
 
 ### 2.2 @Controller, @RestController
+우선 @Controller Annotation에 대해 설명하기 전에, MVC라는 소프트웨어 디자인 패턴에 대해서 알고 있어야 합니다.<br/>
+MVC란 Model - View - Controller의 약자로
+ - Model : 애플리케이션에서 정보, 데이터를 나타냅니다.
+ - View  : 사용자 인터페이스를 나타냅니다.
+ - Controller : 데이터와 사용자 인터페이스 사이를 이어주는 다리역할을 해줍니다.<br/>
+
+MVC 디자인 패턴에 대해서는 추후에 자세히 살펴보겠습니다.<br/>
+
+@Controller Annotation은 사용자의 요청을 처리한 후 반환할 때 지정된 뷰에 모델 객체를 넘겨주는 역할을 합니다.<br/>
+사용자가 요청한 경로에 해당하는 컨트롤러를 찾아서 해당하는 모델에 값을 넘겨주거나, <br/>
+String을 반환할 경우에는 모델이 아닌 사용자에게 보여줄 View를 넘겨줍니다.
+
+ > @Controller Annotation도 내부적으로 @Component Annotation을 가지고 있기 때문에 Bean으로 등록이 됩니다. 
+
+Spring 4.0부터 단순한 RESTful 웹 서비스 생성을 위해 @RestController Annotation을 도입했습니다.<br/>
+@RestController는 @Controller Annotation에 @ResponseBody Annotation을 결합한 형태로, <br/>
+Controller 클래스의 모든 request 처리 메서드에 @ResponseBody Annotation을 추가할 필요가 없게 되었습니다.
+
+
+@Controller Annoation의  
 
 ### 2.3 @RequestMapping
 
