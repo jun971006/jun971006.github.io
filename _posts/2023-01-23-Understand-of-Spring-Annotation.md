@@ -141,8 +141,11 @@ Spring 4.0부터 단순한 RESTful 웹 서비스 생성을 위해 @RestControlle
 @RestController는 @Controller Annotation에 @ResponseBody Annotation을 결합한 형태로, <br/>
 Controller 클래스의 모든 request 처리 메서드에 @ResponseBody Annotation을 추가할 필요가 없게 되었습니다.
 
-
-@Controller Annoation의  
+@ResponseBody Annotation은 Http Body 문자내용을 반환해주는 역할을 하는데, <br/>
+이 Annotation을 추가하면 "viewResolver" 대신에 "HttpMessageConverter"가 동작합니다.<br/>
+기본적으로 동작하는 반환 형태는 Json형식으로 동작하지만,<br/>
+이 때 문자열이 들어오면 "StringHttpMessageConverter"가 반환되고, <br/>
+객체가 들어오면 "MappingJackson2HttpMessageConverter"가 반환됩니다.
 
 ### 2.3 @RequestMapping
 
