@@ -1,5 +1,5 @@
 ---
-title:  "[Spring] @Annotation(어노테이션)"
+title:  "[Spring] @Annotation(어노테이션) 정리"
 
 categories:
   - Spring
@@ -130,7 +130,7 @@ MVC란 Model - View - Controller의 약자로
  - Controller : 데이터와 사용자 인터페이스 사이를 이어주는 다리역할을 해줍니다.<br/>
 
 MVC 디자인 패턴에 대해서는 추후에 자세히 살펴보겠습니다.<br/>
-
+<hr/>
 @Controller Annotation은 사용자의 요청을 처리한 후 반환할 때 지정된 뷰에 모델 객체를 넘겨주는 역할을 합니다.<br/>
 사용자가 요청한 경로에 해당하는 컨트롤러를 찾아서 해당하는 모델에 값을 넘겨주거나, <br/>
 String을 반환할 경우에는 모델이 아닌 사용자에게 보여줄 View를 넘겨줍니다.
@@ -148,6 +148,68 @@ Controller 클래스의 모든 request 처리 메서드에 @ResponseBody Annotat
 객체가 들어오면 "MappingJackson2HttpMessageConverter"가 반환됩니다.
 
 ### 2.3 @RequestMapping
+@RequestMapping Annotation은 Spring MVC와 Spring WebFlux 모두 해당 모듈, 패키지에서<br/>
+RequestMappingHandlerMapping 및 RequestMappingHandlerAdapter를 통해 Annotation이 지원됩니다.
+
+이 Annotation은 클래스, 메서드 레벨에서 모두 다 사용할 수 있는데, <br/>
+대부분의 경우 메서드 레벨에서 애플리케이션은 HTTP메서드인 <br/> 
+@GetMapping, @PostMapping, @PutMapping, @DeleteMapping, @PatchMapping 중 하나를 사용합니다.
+
+> 참고 : 컨트롤러 인터페이스를 사용할 때(ex) AOP 프록시용) 모든 Mapping Annotation(예: @RequestMapping, @SessionAttributes)을 <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;구현 클래스가 아닌 컨트롤러 인터페이스에 일관되게 배치해야 합니다.
+
+- 메서드 레벨 예제
+
+```Java
+@RequestMapping("hello")
+public String helloWorld()
+{
+	return "Hello World!";
+}
+```
+
+사용자가 "hello"라는 주소를 입력하면 helloWorld()라는 메서드가 실행됩니다.
+
+- 클래스 레벨 예제
+
+```Java
+// Importing required classes
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+// Annotations
+@Controller
+@RequestMapping("/hi")
+// Class
+public class ExampleController {
+
+	@ResponseBody
+	@RequestMapping("/hello")
+
+	// Method
+	public String helloWorld()
+	{
+		return "Hello World!";
+	}
+
+	// Annotation
+	@ResponseBody
+	@RequestMapping("/test")
+
+	// Method
+	public String test()
+	{
+		return "test";
+	}
+}
+```
+
+클래스 레벨의 사용으로는 @Controller Annotation에 특정 요청 경로를 Mapping하고, <br/>
+추가로 메서드 레벨의 Annotation을 적용해서 Mapping을 보다 구체적으로 만들 수 있습니다.
+> helloWorld() 메서드 접근 URL : /hi/hello<br/>
+> test() 메서드 접근 URL : /hi/test
+
 
 ### 2.4 @Repostiory
 
