@@ -212,8 +212,34 @@ public class ExampleController {
 
 
 ### 2.4 @Repostiory
+@Repository Annoation은 클래스를 DAO(Data Access Object) 클래스로 표시하는데 사용합니다.<br/>
+
+Annotation 내부를 살펴보면 @Component Annotation이 존재해서 Component Scan을 통해 Bean 으로 등록이 됩니다.
+
+```Java
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Component
+public @interface Repository {
+}
+```
+
+아래의 코드는 @Repository Annotation을 이용해서 DAO 클래스를 만드는 코드입니다.<br/>
+Annotation 괄호 안에 문자를 입력하면 Bean ID로 해당 문자를 등록 할 수 있습니다.
+
+```Java
+@Repository("testDAO")
+public class TestDAO{
+
+}
+```
 
 ### 2.5 @Service
+@Service Annoatation은 서비스 계층 클래스를 표시하는데 사용합니다.<br/>
+응용 프로그램에서 비즈니스 로직을 구현할 때 사용하고, @Repository layer를 호출하는 함수에서 사용합니다.
+
+@Repository Annotation과 마찬가지로 @Component Annotation을 통해 Bean으로 등록이 됩니다.
 
 
 
