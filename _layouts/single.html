@@ -77,6 +77,9 @@ layout: default
           {% include archive-single.html type="grid" %}
         {% endfor %}
       </div>
+      {% if page.comments %}
+        {% include disqus.html %}
+      {% endif %}  
     </div>
   {% comment %}<!-- otherwise show recent posts if no related when `related: true` -->{% endcomment %}
   {% elsif page.id and page.related %}
@@ -90,6 +93,11 @@ layout: default
           {% include archive-single.html type="grid" %}
         {% endfor %}
       </div>
+      {% if page.comments %}
+        {% include disqus.html %}
+      {% endif %}
     </div>
   {% endif %}
+  
+  
 </div>
