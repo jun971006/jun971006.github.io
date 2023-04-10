@@ -16,7 +16,7 @@ toc_label: "목차"
 ---
 
 
-### R Crach Course
+### R Crach Course 1
 
 #### 1. R 기초와 데이터마트
 R 기초
@@ -94,5 +94,96 @@ R 기초
 as.factor : 변수 타입 변환함수
 
 함수 정리 필요
+- 중앙값과 평균 차이****
 
 sum(is.na) : 결측치가 몇개?
+
+
+### R Crash Course 2
+
+
+#### 1. File(Excel, csv) 읽어서 DF으로 데이터 처리
+
+- 워킹 디렉토리 설정
+  - getwd()
+  - setwd()
+
+- 라이브러리 다운로드
+  - sqldf
+    - sql만 알고 R은 모를 때 사용
+  - dplyr
+  - ggplot2
+    - grammars of graphics 
+
+- excel , csv, xls 
+  - csv 용량이 훨씬 작다!!
+
+- 히스토그램 = 도수분포표
+
+- 데이터를 가지고 노는 행위 = 먼징
+
+- boxplot 에서 동그라미 -> 이상치
+
+- 통계용어/개념
+  - 확률밀도함수
+  - 정규분포
+  - 신뢰구간
+  - 표준편차
+  - 분산
+
+- ifelse
+```R
+mpg2$grade <- ifelse(mpg2$ave >= 20, "P", "F" ) 
+```
+
+- filter -> 원하는 행을 추출하는 것
+
+- a = 5 -> a에 5를 할당(파라미터)
+- == 조건
+- 파이프라인 연산자 : %>%
+
+- %>%
+```R
+mpg2 %>% filter(grade == "P") # 결과값이 메모리에만 존재
+mpg_pass <- mpg2 %>% filter(cyl >= 6 & grade == "P")   
+# 엔드 조건 &, mpg_pass에 6기통 이상, pass 조건 만족하는 데이터 출력
+```
+- arrange()
+  - 순서대로 정렬
+  - 디폴트는 오름차순
+
+- 예제
+  - 등급 : p이고, 메이커별 모델별로 그룹하고, 그룹의 평균연비 계산하고, 연비 순서대로 메이커, 모델, 연비 출력
+
+```R
+mpg2 %>% 
+  filter(grade == "P") %>%
+  group_by(maker, model) %>%
+  summarizes(model_ave = mean(ave)) %>%
+  select(c(maker, model, model_ave)) %>%
+  arrange(desc(model_ave))
+```
+
+- 통계 -> 추리(론)통계, 기술통계
+  - 기술통계(Descriptive Sstatistics) : 수집한 데이터를 요약, 묘사, 설명하는 통계기법
+  - 추리통계(Inferential statistics) : 데이터를 바탕으로 추론, 예측하는 통계기법
+
+- 결측치?
+  - NA
+  - 데이터가 중간중간 비어있는 것
+
+
+- complete.cases(df1)
+  - 행에 대한 NA값 존재 여부 확인
+
+
+- ggplot 
+  - 그리고 싶은 데이터를 차곡차곡 쌓아서 그릴 수 있다.
+
+> fundamentals of graphics
+> bookdown.org 참고
+
+- '23. 4. 3.(월) 과제
+  - https://shines39.tistory.com/entry/ggplot%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EA%B0%80%EC%8B%9C%ED%99%94-I
+  - https://shines39.tistory.com/entry/ggplot%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EB%8D%B0%EC%9D%B4%ED%84%B0%EA%B0%80%EC%8B%9C%ED%99%94-II
+  읽어오기
