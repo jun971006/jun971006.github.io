@@ -1,5 +1,5 @@
 ---
-title:  "[BigData] 빅데이터분석론 - 통계분석"
+title:  "[BigData] 빅데이터분석론 - 통계분석 개념정리"
 
 categories:
   - BigData
