@@ -3,7 +3,6 @@ title:  "[BigData] 빅데이터분석론 - R Crash Course"
 
 categories:
   - BigData
-  - R
 tags:
   - BigData
   - R
