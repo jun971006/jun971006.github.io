@@ -24,8 +24,7 @@ toc_label: "목차"
 객체 간에 1:N의 종속성을 설정하므로, 주제의 상태가 변하면 주제에게 종속되어있는 모든 관찰자의 상태가 자동으로 업데이트 됩니다.
 
 
-
-<img src="../assets/images/study/cs/observer pattern example.png" width="50%" height="50%" title="observer pattern of twitter"/>
+![](/assets/images/study/cs/observer pattern example.png)
     
 
 #### 장점
