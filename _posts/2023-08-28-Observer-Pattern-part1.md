@@ -1,8 +1,8 @@
 ---
-title:  "[Study] CS 스터디 - 디자인 패턴"
+title:  "[Study] CS 스터디 - 디자인 패턴(옵저버 패턴 Part1)"
 
 categories:
-  - Study
+  - CS
 tags:
   - Design pattern
   - Observer pattern
@@ -17,11 +17,16 @@ toc_label: "목차"
 
 ## 디자인 패턴 뿌시기
 
-### 옵저버 패턴
+### 옵저버 패턴 - Part1
 
 #### 개념
-관찰자(Observer)의 상태를 주제(Subject)의 상태 변경에 따라 최신 상태를 유지하도록 도와주는 디자인 패턴이고,
-객체 간에 1:1 or 1:N의 종속성을 설정하므로, 주제의 상태가 변하면 주제에게 종속되어있는 모든 관찰자의 상태가 자동으로 업데이트 됩니다.
+관찰자(Observer)의 상태를 주제(Subject)의 상태 변경에 따라 최신 상태를 유지하도록 도와주는 디자인 패턴이고,<br>
+객체 간에 1:N의 종속성을 설정하므로, 주제의 상태가 변하면 주제에게 종속되어있는 모든 관찰자의 상태가 자동으로 업데이트 됩니다.
+
+
+
+<img src="../assets/images/study/cs/observer pattern example.png" width="50%" height="50%" title="observer pattern of twitter"/>
+    
 
 #### 장점
 1. 느슨한 결합(Loose Coupling)
@@ -50,7 +55,7 @@ toc_label: "목차"
 <br>
 아직 잘모르겠으니 예제를 보면서 이해해봅시다.
 
-#### 예시
+#### 예제
 기상청 어플을 사용하는 사람으로 가정을 해봅시다.
 
 이 기상청 어플은 날씨가 바뀌면 어플을 설치한 사람에게 바뀐 날씨를 알림으로 알려줍니다.
@@ -61,6 +66,10 @@ toc_label: "목차"
 실제 예제 코드를 보면서 이해해봅시다.
 
 1. 주제 객체
+    - 옵저버 객체 관리 리스트
+    - 옵저버 등록 / 등록 해제 메서드
+    - 주제 객체 상태 변화 메서드
+      - 주제 객체 상태 변화 시 알림 메서드
 
     ```Java
     import java.util.ArrayList;
@@ -92,7 +101,9 @@ toc_label: "목차"
     }
     ```
 
-2. 관찰자 객체
+2. 관찰자 객체(인터페이스)
+    - 주제 객체의 상태 변화에 따른 관찰자 객체 상태 변화 메서드
+      - update 메서드에 날씨값인 weather를 받아옵니다.
 
     ```Java
     // 옵저버 인터페이스
@@ -101,43 +112,64 @@ toc_label: "목차"
     }
     ```
 
-3. 관찰자 객체(구현체)
+3. 관찰자 객체(구현 클래스)
+    - 관찰자 인터페이스 구현 클래스
+    - 상태 변화 메서드 구현
 
     ```Java
     // 구체적인 옵저버 클래스
-    class Kid implements Observer {
+        class Person implements Observer {
         private String name;
 
-        public Kid(String name) {
+        public Person(String name) {
             this.name = name;
         }
 
         @Override
         public void update(String weather) {
-            System.out.println(name + "은(는) 날씨가 " + weather + "일 때의 상태를 보고합니다.");
+            System.out.println(name + " : " + weather);
         }
     }
-
     ```
 
 4. 옵저버 패턴 메인
+    - 주제 객체 생성
+    - 옵저버 객체 생성
+    - 옵저버 객체 등록
+    - 주제 객체 상태 변경
+      - 관찰자 객체에 알림
 
     ```Java
     public class ObserverPatternDemo {
         public static void main(String[] args) {
             WeatherStation weatherStation = new WeatherStation(); // 필수 요소: 주제 생성
 
-            Kid kid1 = new Kid("앨리스"); // 필수 요소: 옵저버 생성
-            Kid kid2 = new Kid("밥");
+            Person Person1 = new Person("person1"); // 필수 요소: 옵저버 생성
+            Person Person2 = new Person("person2");
 
-            weatherStation.addObserver(kid1); // 필수 요소: 옵저버 등록
-            weatherStation.addObserver(kid2);
+            weatherStation.addObserver(Person1); // 필수 요소: 옵저버 등록
+            weatherStation.addObserver(Person2);
 
-            weatherStation.setWeather("맑음"); // 필수 요소: 상태 변경 (옵저버 알림)
-
-            weatherStation.setWeather("비"); // 필수 요소: 상태 변경 (옵저버 알림)
+            weatherStation.setWeather("sunny"); // 필수 요소: 상태 변경 (옵저버 알림)
+            
+            System.out.println("-----------------");
+            weatherStation.setWeather("rainy"); // 필수 요소: 상태 변경 (옵저버 알림)
         }
     }
     ```
 
-#### 
+5. 결과
+
+   ```Java
+   person1 : sunny
+   person2 : sunny
+   -----------------
+   person1 : rainy
+   person2 : rainy
+   ```
+
+하지만 여기서는 관찰자 객체를 주제 객체에 추가한 순서대로만 알림을 줄 수 있기 때문에 다음 코드를 추가해서 알림 순서를 조절할 수 있습니다.
+<br>
+to be continue...
+
+> 참고자료 <br> 1. 면접을 위한 CS 전공지식 노트 <br> 2. chatGPT

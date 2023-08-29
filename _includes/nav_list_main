@@ -63,6 +63,9 @@
                     {% if category[0] == "Study" %}
                         <li><a href="/categories/study" class="">study ({{category[1].size}})</a></li>
                     {% endif %}
+                    {% if category[0] == "CS" %}
+                        <li><a href="/categories/cs" class="">cs ({{category[1].size}})</a></li>
+                    {% endif %}
                 {% endfor %}
             </ul>
       </li>
