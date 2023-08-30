@@ -14,7 +14,6 @@ toc_sticky: true
 toc_label: "목차"
 ---
 
-
 ## 디자인 패턴 뿌시기
 
 ### 옵저버 패턴 - Part2
@@ -26,13 +25,14 @@ toc_label: "목차"
 <hr>
 
 ##### 1. 주제 객체
-    - 변경사항
-      - 관찰자 객체 저장 객체 
-        - List -> LinkedHashMap
-      - 알림 순서 객체
-        - 순서, 관찰자 객체
-      - 알림 순서 객체 배열
-        - update 함수 사용할 때 사용
+
+- 변경사항
+  - 관찰자 객체 저장 객체 
+    - List -> LinkedHashMap
+  - 알림 순서 객체
+    - 순서, 관찰자 객체
+  - 알림 순서 객체 배열
+    - update 함수 사용할 때 사용
 
     ```Java
     import java.util.ArrayList;
@@ -93,7 +93,8 @@ toc_label: "목차"
 <hr>
 
 ##### 2. <strong>관찰자 순서 객체</strong>(신규)
-    - 관찰자 객체 순서, 관찰자 객체를 담고 있는 클래스
+
+- 관찰자 객체 순서, 관찰자 객체를 담고 있는 클래스
 
     ```Java
     class ObserverOrder {
@@ -118,8 +119,9 @@ toc_label: "목차"
 <hr>
 
 ##### 3. 관찰자 객체(인터페이스)
-    - 변경사항
-      - name getter 추가
+
+- 변경사항
+  - name getter 추가
 
     ```Java
     // 옵저버 인터페이스
@@ -132,8 +134,9 @@ toc_label: "목차"
 <hr>
 
 ##### 4. 관찰자 객체(구현 클래스)
-    - 변경사항
-      - name getter 구현
+    
+- 변경사항
+  - name getter 구현
 
     ```Java
     // 구체적인 옵저버 클래스
@@ -160,11 +163,12 @@ toc_label: "목차"
 <hr>
 
 ##### 5. 옵저버 패턴 메인
-    - 주제 객체 생성
-    - 옵저버 객체 생성
-    - 옵저버 객체 등록
-    - 주제 객체 상태 변경
-      - 관찰자 객체에 알림
+
+- 주제 객체 생성
+- 옵저버 객체 생성
+- 옵저버 객체 등록
+- 주제 객체 상태 변경
+  - 관찰자 객체에 알림
 
     ```Java
     public class ObserverPatternDemo {
