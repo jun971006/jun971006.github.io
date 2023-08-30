@@ -21,9 +21,11 @@ toc_label: "목차"
 
 이전 게시글에서 다뤘던 예제에서 더 나아가 알림 순서를 조정할 수 있는 예제를 살펴보려한다.
 
-> [이전글 보기](https://jun971006.github.io/study/Observer-Pattern-part1)
+> [이전글 보기](https://jun971006.github.io/cs/Observer-Pattern-part1)
 
-1. 주제 객체
+<hr>
+
+##### 1. 주제 객체
     - 변경사항
       - 관찰자 객체 저장 객체 
         - List -> LinkedHashMap
@@ -88,7 +90,9 @@ toc_label: "목차"
     }
     ```
 
-2. <strong>관찰자 순서 객체</strong>(신규)
+<hr>
+
+##### 2. <strong>관찰자 순서 객체</strong>(신규)
     - 관찰자 객체 순서, 관찰자 객체를 담고 있는 클래스
 
     ```Java
@@ -111,7 +115,9 @@ toc_label: "목차"
     }
     ```
 
-3. 관찰자 객체(인터페이스)
+<hr>
+
+##### 3. 관찰자 객체(인터페이스)
     - 변경사항
       - name getter 추가
 
@@ -123,7 +129,9 @@ toc_label: "목차"
     }
     ```
 
-4. 관찰자 객체(구현 클래스)
+<hr>
+
+##### 4. 관찰자 객체(구현 클래스)
     - 변경사항
       - name getter 구현
 
@@ -149,7 +157,9 @@ toc_label: "목차"
     }
     ```
 
-5. 옵저버 패턴 메인
+<hr>
+
+##### 5. 옵저버 패턴 메인
     - 주제 객체 생성
     - 옵저버 객체 생성
     - 옵저버 객체 등록
@@ -181,8 +191,10 @@ toc_label: "목차"
         }
     }
     ```
+    
+<hr>
 
-6. 결과
+##### 6. 결과
 
    ```Java
    person1 : sunny
@@ -194,4 +206,9 @@ toc_label: "목차"
    person2 : rainy
    ```
 
+<hr>
+
+#### 결론
 > 관찰자의 알림 순서를 저장하고 있는 observerOrder 객체와 순서를 지정하는 specifyNotificationOrder 메서드를 통해 직접 알림 순서를 지정할 수 있었다.
+
+<hr>
