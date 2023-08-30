@@ -74,12 +74,13 @@ toc_label: "목차"
 <hr>
 
 ##### 1. 주체 객체
-    - 옵저버 객체 관리 리스트
-    - 옵저버 등록 / 등록 해제 메서드
-    - 주체 객체 상태 변화 메서드
-      - 주체 객체 상태 변화 시 알림 메서드
 
-    ```Java
+- 옵저버 객체 관리 리스트
+- 옵저버 등록 / 등록 해제 메서드
+- 주체 객체 상태 변화 메서드
+  - 주체 객체 상태 변화 시 알림 메서드
+
+  ```Java
     import java.util.ArrayList;
     import java.util.List;
 
@@ -107,28 +108,30 @@ toc_label: "목차"
             }
         }
     }
-    ```
+  ```
 
 <hr>
 
 ##### 2. 관찰자 객체(인터페이스)
-    - 주체 객체의 상태 변화에 따른 관찰자 객체 상태 변화 메서드
-      - update 메서드에 날씨값인 weather를 받아옵니다.
 
-    ```Java
+- 주체 객체의 상태 변화에 따른 관찰자 객체 상태 변화 메서드
+  - update 메서드에 날씨값인 weather를 받아옵니다.
+
+  ```Java
     // 옵저버 인터페이스
     interface Observer {
         void update(String weather); // 필수 요소: 업데이트 메서드 정의
     }
-    ```
+  ```
 
 <hr>
 
 ##### 3. 관찰자 객체(구현 클래스)
-    - 관찰자 인터페이스 구현 클래스
-    - 상태 변화 메서드 구현
 
-    ```Java
+- 관찰자 인터페이스 구현 클래스
+- 상태 변화 메서드 구현
+
+  ```Java
     // 구체적인 옵저버 클래스
         class Person implements Observer {
         private String name;
@@ -142,18 +145,19 @@ toc_label: "목차"
             System.out.println(name + " : " + weather);
         }
     }
-    ```
+  ```
 
 <hr>
 
 ##### 4. 옵저버 패턴 메인
-    - 주체 객체 생성
-    - 옵저버 객체 생성
-    - 옵저버 객체 등록
-    - 주체 객체 상태 변경
-      - 관찰자 객체에 알림
 
-    ```Java
+- 주체 객체 생성
+- 옵저버 객체 생성
+- 옵저버 객체 등록
+- 주체 객체 상태 변경
+  - 관찰자 객체에 알림
+
+  ```Java
     public class ObserverPatternDemo {
         public static void main(String[] args) {
             WeatherStation weatherStation = new WeatherStation(); // 필수 요소: 주체 생성
@@ -170,7 +174,7 @@ toc_label: "목차"
             weatherStation.setWeather("rainy"); // 필수 요소: 상태 변경 (옵저버 알림)
         }
     }
-    ```
+  ```
 
 <hr>
 
