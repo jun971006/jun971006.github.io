@@ -23,9 +23,6 @@ toc_label: "목차"
 관찰자(Observer)의 상태를 주체(Subject)의 상태 변경에 따라 최신 상태를 유지하도록 도와주는 디자인 패턴이고,<br>
 객체 간에 1:N의 종속성을 설정하므로, 주체의 상태가 변하면 주체에게 종속되어있는 모든 관찰자의 상태가 자동으로 업데이트 됩니다.
 
-
-![](/assets/images/study/cs/observer pattern example.png)
-    
 <hr>
 
 #### 장점
