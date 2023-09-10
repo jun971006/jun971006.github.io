@@ -245,7 +245,7 @@ NoSQL 데이터베이스는 Not Only SQL이라는 슬로건에서 생겨난 데�
 #### Reference 
 [TheBook - 면접을 위한 CS 전공지식 노트](https://thebook.io/080326/) <br/>
 [chatGPT](https://chat.openai.com/) <br/>
-[geeksforgeeks - dbms에서의 acid](https://www.geeksforgeeks.org/acid-properties-in-dbms/)
+[geeksforgeeks - dbms에서의 acid](https://www.geeksforgeeks.org/acid-properties-in-dbms/) <br/>
 [TCPSchool-관계형 데이터베이스](http://www.tcpschool.com/mysql/mysql_intro_relationalDB)
 
 
