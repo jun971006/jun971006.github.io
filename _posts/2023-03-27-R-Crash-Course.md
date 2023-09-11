@@ -187,3 +187,7 @@ mpg2 %>%
   - https://shines39.tistory.com/entry/ggplot%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EA%B0%80%EC%8B%9C%ED%99%94-I
   - https://shines39.tistory.com/entry/ggplot%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EB%8D%B0%EC%9D%B4%ED%84%B0%EA%B0%80%EC%8B%9C%ED%99%94-II
   읽어오기
+
+  > '23. 9. 11.(월) 과제
+  > 블로그 글 직접 따라서 복습하기
+  

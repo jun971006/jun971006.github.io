@@ -34,7 +34,7 @@ toc_label: "목차"
   - 알림 순서 객체 배열
     - update 함수 사용할 때 사용
 
-    ```Java
+    ```java
     import java.util.ArrayList;
     import java.util.HashMap;
     import java.util.LinkedHashMap; <- 추가!
@@ -96,7 +96,7 @@ toc_label: "목차"
 
 - 관찰자 객체 순서, 관찰자 객체를 담고 있는 클래스
 
-    ```Java
+    ```java
     class ObserverOrder {
         private int order;
         private Observer observer;
@@ -123,7 +123,7 @@ toc_label: "목차"
 - 변경사항
   - name getter 추가
 
-    ```Java
+    ```java
     // 옵저버 인터페이스
     interface Observer {
         void update(String weather); // 필수 요소: 업데이트 메서드 정의
@@ -138,7 +138,7 @@ toc_label: "목차"
 - 변경사항
   - name getter 구현
 
-    ```Java
+    ```java
     // 구체적인 옵저버 클래스
     class Person implements Observer {
         private String name;
@@ -170,7 +170,7 @@ toc_label: "목차"
 - 주제 객체 상태 변경
   - 관찰자 객체에 알림
 
-    ```Java
+    ```java
     public class ObserverPatternDemo {
         public static void main(String[] args) {
             WeatherStation weatherStation = new WeatherStation(); // 필수 요소: 주제 생성
@@ -200,7 +200,7 @@ toc_label: "목차"
 
 ##### 6. 결과
 
-   ```Java
+   ```java
    person1 : sunny
    person2 : sunny
    person3 : sunny
