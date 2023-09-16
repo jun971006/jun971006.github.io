@@ -140,3 +140,9 @@ Backward:
 다음 글에서는 배열과 벡터에 대해서 알아보겠습니다.
 
 > [다음글 보기](https://jun971006.github.io/cs/Linear-Data-Structure2)
+
+
+#### Reference 
+[TheBook - 면접을 위한 CS 전공지식 노트](https://thebook.io/) <br/>
+[chatGPT](https://chat.openai.com/)<br>
+[devopedia.org](https://devopedia.org//)
