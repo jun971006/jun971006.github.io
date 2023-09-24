@@ -62,7 +62,7 @@ Spring Boot 프로젝트를 생성했을 때 기본적으로 가지고 있는 An
 spring-boot-autoconfigure-[version].jar/META-INF/spring.factories에 정의되어 있는
 configuration 대상 클래스들을 Bean으로 등록해줍니다.
 
-```Java
+```java
 // ...
 # Auto Configuration Import Filters
 org.springframework.boot.autoconfigure.AutoConfigurationImportFilter=\
@@ -86,7 +86,7 @@ BasePackageClasses는 전달된 클래스의 위치를 기준으로 스캔하는
 
 위에서 잠깐 다룬 [@SpringBootApplication](#21-springbootapplication) Annotation 내부로 들어가보면,<br/>
 
-```Java
+```java
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
@@ -104,7 +104,7 @@ public @interface SpringBootApplication {
 
 만약 @SpringBootApplication Annotation이 정의되지 않은 곳에서 Bean 등록을 하고 의존성 주입을 시도한다면 
 
-```Java
+```java
 The injection point has the following annotations:
 	- @org.springframework.beans.factory.annotation.Autowired(required=true)
 ```
@@ -160,7 +160,7 @@ RequestMappingHandlerMapping 및 RequestMappingHandlerAdapter를 통해 Annotati
 
 - 메서드 레벨 예제
 
-```Java
+```java
 @RequestMapping("hello")
 public String helloWorld()
 {
@@ -172,7 +172,7 @@ public String helloWorld()
 
 - 클래스 레벨 예제
 
-```Java
+```java
 // Importing required classes
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -216,7 +216,7 @@ public class ExampleController {
 
 Annotation 내부를 살펴보면 @Component Annotation이 존재해서 Component Scan을 통해 Bean 으로 등록이 됩니다.
 
-```Java
+```java
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
@@ -228,7 +228,7 @@ public @interface Repository {
 아래의 코드는 @Repository Annotation을 이용해서 DAO 클래스를 만드는 코드입니다.<br/>
 Annotation 괄호 안에 문자를 입력하면 Bean ID로 해당 문자를 등록 할 수 있습니다.
 
-```Java
+```java
 @Repository("testDAO")
 public class TestDAO{
 
