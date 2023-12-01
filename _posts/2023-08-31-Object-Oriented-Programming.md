@@ -62,7 +62,7 @@ toc_label: "목차"
 ##### 1. 추상화
 추상화는 복잡한 시스템에서 중요한 세부사항을 감추고 핵심 기능에만 집중하는 것을 의미합니다. 자동차의 예시에서, 운전자는 자동차의 내부 동작 메커니즘을 알 필요 없이 조작할 수 있습니다.
 
-```java
+```Java
 abstract class Car {
     String make;
     String model;
@@ -77,7 +77,7 @@ abstract class Car {
 ##### 2. 상속
 상속은 기존 클래스의 속성과 메서드를 재사용하거나 확장하여 새로운 클래스를 만드는 개념입니다. 자동차의 예시에서, 다양한 유형의 자동차는 기본 Car 클래스를 확장할 수 있습니다.
 
-```java
+```Java
 class SUV extends Car {
     @Override
     void start() {
@@ -116,7 +116,7 @@ class Sedan extends Car {
 ##### 3. 다형성
 다형성은 다른 클래스의 객체가 같은 메서드를 호출할 때 서로 다르게 동작할 수 있는 능력을 말합니다. 자동차의 예시에서, 서로 다른 자동차 유형은 같은 메서드를 호출해도 다른 방식으로 동작할 수 있습니다.
 
-```java
+```Java
 public class CarMain {
     public static void main(String[] args) {
         Car sedan = new Sedan();
@@ -138,7 +138,7 @@ public class CarMain {
 ##### 4. 캡슐화
 캡슐화는 데이터와 관련 메서드를 하나의 단위로 묶어 외부로부터 보호하는 개념입니다. 자동차의 예시에서, 클래스의 내부 데이터와 동작은 외부로부터 감춰지고 필요한 기능만 노출됩니다.
 
-```java
+```Java
 class Car {
     private String make;
     private String model;
