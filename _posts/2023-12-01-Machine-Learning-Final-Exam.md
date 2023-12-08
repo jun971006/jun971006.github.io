@@ -101,6 +101,8 @@ cat("Character 변수 개수 :", num_char_vars, "\n")
 ### 2) Data Visualization
 - 데이터를 비주얼라이즈 해보자.
 - 히스토그램으로 SalePrice 데이터를 시각화해봤을 때 오른쪽으로 치우친 것을 확인할 수 있다.
+- 정규화가 필요하겠다..!
+
 ```r
 ggplot(data = dataset, aes(x = SalePrice)) +
   geom_histogram(fill =  "#8da0cb", binwidth = 10000) +
@@ -140,8 +142,232 @@ corrplot.mixed(cor_numVar,
 ![](/assets/images/bigdata/final/correlation_over_0.5_.png)
 
 ## 3. Prepare Data
-
 ### 1) Data Cleaning
+이 단계에서는 결측치를 처리해준다.
+
+우선 결측치가 있는 데이터를 뽑아보자
+
+```r
+# 데이터의 결측치를 확인해보자
+NAcol <- which(colSums(is.na(Housing)) > 0)  # 모든 결측치 변수 생성
+                                             # 결측치를 가지고 있는 변수는 총 25개이다.
+sort(colSums(sapply(Housing[NAcol], is.na)), decreasing = TRUE) # 결측치 변수 별로 내림차순 정렬
+
+# Pool.QC   Misc.Feature          Alley          Fence   Fireplace.Qu   Lot.Frontage  Garage.Yr.Blt    Garage.Qual 
+# 2917           2824           2732           2358           1422            490            159            158 
+# Garage.Cond    Garage.Type  Garage.Finish      Bsmt.Qual      Bsmt.Cond  Bsmt.Exposure BsmtFin.Type.1 BsmtFin.Type.2 
+# 158            157            157             79             79             79             79             79 
+# Mas.Vnr.Area Bsmt.Full.Bath Bsmt.Half.Bath   BsmtFin.SF.1   BsmtFin.SF.2    Bsmt.Unf.SF  Total.Bsmt.SF    Garage.Cars 
+# 23              2              2              1              1              1              1              1 
+# Garage.Area 
+# 1   
+```
+
+- 데이터셋이 2930 by 82인데 결측치가 너무 많은 변수는 제외하고 나머지 변수들만 처리해보자
+- 결측치 처리는 기존에 Kaggle에서 똑똑한 분들이 해놓은 자료를 참고해서 진행해봤다.
+
+> link : https://www.kaggle.com/code/maestroyi/house-prices-prediction-with-r-to-korean/report
+
+#### (1) Lot.Frontage
+Lot.Frontage 변수는 쉽게 말해서 토지와 도로 사이의 거리라고 보면 된다. 
+이 값은 동네(neighborhood)에 가격이 다 다르기 때문에, 
+동네(neighborhood)별로 중위값을 구해서 결측치를 처리해보자.
+
+```r
+Housing <- Housing %>%
+  group_by(Neighborhood) %>% # Neighborhood로 그룹핑 한 뒤
+  mutate(Lot.Frontage = ifelse(is.na(Lot.Frontage), median(Lot.Frontage, na.rm = TRUE), Lot.Frontage)) %>% 
+  # mutate를 사용해서 Lot.Frontage의 값을 중위수로 바꿔준다.
+  ungroup()
+```
+
+#### (2) Garage
+다음으로는 Garage 관련 변수들을 처리해보자.
+Garage 관련 변수로는  Garage.Yr.Blt, Garage.Qual, Garage.Cond, Garage.Type, Garage.Finish, Garage.Cars, Garage.Area 총 7개다.
+
+##### (2) - 1 Garage.Yr.Blt
+우선 Garage.Yr.Blt 변수는 차고가 지어진 년도로 건물이 지어진 년도(Year.Built)로 대체하겠다.
+
+```r
+Housing <- Housing %>%
+  mutate(Garage.Yr.Blt = ifelse(is.na(Garage.Yr.Blt), Year.Built, Garage.Yr.Blt))
+```
+
+##### (2) - 2 Garage.Qual
+Garage.Qual 변수는 차고의 품질을 나타내는 변수로,
+Garage.Qual과 SalePrice간에 품질별로 값이 순서가 있는것을 확인할 수 있었다.
+
+결측치는 차고가 없다는 'None'으로 대체한다.
+
+순서가 존재하는 데이터이기 때문에 순서형 벡터를 활용해서 품질별로 순서를 매겨줬다.
+
+```r
+Housing$Garage.Qual[is.na(Housing$Garage.Qual)] <- 'None' # 결측치 처리
+
+# 순서형 벡터 변수를 만들어주자
+Qualities <- c('None' = 0, 'Po' = 1, 'Fa' = 2, 'TA' = 3, 'Gd' = 4, 'Ex' = 5)
+
+# Qualities를 활용해서 integer 형으로 변환해준다.
+Housing$Garage.Qual <- as.integer(revalue(Housing$Garage.Qual, Qualities))
+```
+
+##### (2) - 3 Garage.Cond
+Garage.Cond 변수도 Garage.Qual 변수와 마찬가지로 순서가 존재하고,
+결측치는 'None'으로 처리한 뒤, 순서형 벡터로 순서를 매겨준다.
+
+```r
+Housing$Garage.Cond[is.na(Housing$Garage.Cond)] <- 'None' # 결측치 처리
+
+# 마찬가지로 순서가 존재한다.
+Qualities <- c('None' = 0, 'Po' = 1, 'Fa' = 2, 'TA' = 3, 'Gd' = 4, 'Ex' = 5)
+
+# Qualities를 활용해서 integer 형으로 변환해준다.
+Housing$Garage.Cond <- as.integer(revalue(Housing$Garage.Cond, Qualities))
+```
+
+##### (2) - 3 Garage.Type
+Garage.Type 변수는 차고의 종류를 나타내는 변수로, 따로 순서가 보이지 않는다.
+결측치를 'None'으로 처리해주고, factor형 변수로 바꿔주자
+
+```r
+Housing$Garage.Type[is.na(Housing$Garage.Type)] <- 'No Garage' # 결측치 처리
+
+Housing$Garage.Type <- as.factor(Housing$Garage.Type) # factor형으로 변환환
+```
+
+##### (2) - 4 Garage.Finish
+우선 변수 내에 비어있는 값을 처리해주자
+```r
+which(Housing$Garage.Finish == '') # 비어있는 값이 보인다.
+
+# 1357번째 row가 범인이다.
+Housing$Garage.Finish[1357] <- 'Unf' # 최빈값인 Unf로 대체해주겠다.
+```
+데이터 확인 결과 순서가 있네? 이제 설명없이 처리하겠다..
+```r
+Housing$Garage.Finish[is.na(Housing$Garage.Finish)] <- 'None' # 결측치 처리
+
+# Qualities 벡터 생성하기
+Qualities <- c('None' = 0, 'Unf' = 1, 'RFn' = 2, 'Fin' = 3)
+
+# Qualities를 활용해서 integer 형으로 변환해준다.
+Housing$Garage.Finish <- as.integer(revalue(Housing$Garage.Finish, Qualities))
+```
+
+##### Garage 결측치 처리 확인
+결측치 처리 후에 잘됐는지 결과를 확인해보자..!
+만약 아직 남아있다면 추가로 처리해주자
+```r
+summary(Housing[, c('Garage.Yr.Blt','Garage.Qual', 'Garage.Cond','Garage.Finish', 'Garage.Type', 'Garage.Cars', 'Garage.Area')])
+```
+
+#### (3) Basement
+다음으로는 지하실 관련 변수들의 결측치를 처리해보자
+이녀석도 관련 변수가 상당히 많다..
+
+```r
+# Bsmt.Qual, Bsmt.Cond, Bsmt.Exposure, BsmtFin.Type.1, BsmtFin.Type.2
+#    79         79             79             79             79
+# Bsmt.Full.Bath, Bsmt.Half.Bath, BsmtFin.SF.1, BsmtFin.SF.2, Bsmt.Unf.SF, Total.Bsmt.SF 총 11가지의 종류가 존재한다.
+```
+지하실 관련 변수들도 차고 관련 변수들을 처리했듯이 결측치를 처리한 뒤, <br>
+순서가 존재하면 순서형 벡터를 통해 integer형 변수로 변환하고, 없다면 factor형으로 변환한다.
+
+##### (3) - 1 Bsmt.Qual
+Bsmt.Qual은 지하실의 품질을 나타내는 변수이고, 순서를 가지고 있다..!
+어떻게 아냐고? SalePrice 랑 그래프 그려서 보여주겠다.
+
+![](/assets/images/bigdata/final/SalePrice_Bsmt_Overall_Quality_histogram.png)
+
+보이는 것과 같이 "Ex", "Gd", "TA", "FA", "NA", "Po" 순으로 SalePrice값이 작아지는데,
+"FA"랑 "NA"가 거의 비슷하니까 같은 비중을 주자
+
+```r
+# 결측치는 지하실이 없다고 판단한다.
+Housing$Bsmt.Qual[is.na(Housing$Bsmt.Qual)] <- 'None' # 결측치 처리
+
+# Qualities 벡터 생성하기
+Qualities <- c('None' = 1, 'Po' = 0, 'Fa' = 1, 'TA' = 3, 'Gd' = 4, 'Ex' = 5)
+
+# Qualities를 활용해서 integer 형으로 변환해준다.
+Housing$Bsmt.Qual <- as.integer(revalue(Housing$Bsmt.Qual, Qualities))
+```
+
+##### (3) - 2 Bsmt.Cond
+다음으로는 Bsmt.Cond 변수를 처리해보자
+마찬가지로 순서를 가지고 있으니까, 순서형 벡터로 처리해주자!
+
+```r
+Housing$Bsmt.Cond[is.na(Housing$Bsmt.Cond)] <- 'None' # 결측치 처리
+
+# Qualities 벡터 생성하기
+Qualities <- c('None' = 0, 'Po' = 1, 'Fa' = 2, 'TA' = 3, 'Gd' = 4, 'Ex' = 5)
+
+# Qualities를 활용해서 integer 형으로 변환해준다.
+Housing$Bsmt.Cond <- as.integer(revalue(Housing$Bsmt.Cond, Qualities))
+```
+
+##### (3) -3 Bsmt.Exposure
+Bsmt.Exposure 변수는 순서가 존재하지는 않지만,
+히스토그램으로 데이터를 관측해봤을 때, "Av" 등급의 분포와 가장 유사하다.
+
+```r
+# 해당 값들을 'Av'로 대체해준다.
+Housing$Bsmt.Exposure[which(Housing$Bsmt.Exposure == '')] <- 'Av' # 결측치 처리
+```
+
+##### (3) - 4 BsmtFin.Type.1
+BsmtFin.Type.1 변수는 지하 마감재의 유형을 나타냅니다.
+이 변수도 순서가 존재해 보인다.
+
+ GLQ  Good Living Quarters
+ ALQ  Average Living Quarters
+ BLQ  Below Average Living Quarters   
+ Rec  Average Rec Room
+ LwQ  Low Quality
+ Unf  Unfinshed
+ NA   No Basement
+
+```r
+Housing$BsmtFin.Type.1[is.na(Housing$BsmtFin.Type.1)] <- 'None' # 결측치 처리
+
+# Qualities 벡터 생성하기
+Qualities <- c('None' = 0, 'Unf' = 1, 'LwQ' = 2, 'Rec' = 3, 'BLQ' = 4, 'ALQ' = 5, 'GLQ' = 6)
+
+# Qualities를 활용해서 integer 형으로 변환해준다.
+Housing$BsmtFin.Type.1 <- as.integer(revalue(Housing$BsmtFin.Type.1, Qualities))
+```
+
+##### (3) - 5 BsmtFin.Type.2
+BsmtFin.Type.2 변수도 BsmtFin.Type.1 변수와 비슷하게 처리하자
+
+```r
+Housing$BsmtFin.Type.2[is.na(Housing$BsmtFin.Type.2)] <- 'None' # 결측치 처리
+
+# Qualities 벡터 생성하기
+Qualities <- c('None' = 0, 'Unf' = 1, 'LwQ' = 2, 'Rec' = 3, 'BLQ' = 4, 'ALQ' = 5, 'GLQ' = 6)
+
+# Qualities를 활용해서 integer 형으로 변환해준다.
+Housing$BsmtFin.Type.2 <- as.integer(revalue(Housing$BsmtFin.Type.2, Qualities))
+```
+
+##### (3) - 6 나머지 Bsmt 변수 처리
+다음으로 Bsmt.Full.Bath, Bsmt.Half.Bath, BsmtFin.SF.1, BsmtFin.SF.2, Bsmt.Unf.SF, Total.Bsmt.SF 변수의 결측치를 처리해보려고 한다.
+
+해당 row들은 지하실이 없는 경우이기 때문에 0으로 대체해준다.
+
+```r
+Housing$Bsmt.Full.Bath[is.na(Housing$Bsmt.Full.Bath)] <- 0
+Housing$Bsmt.Half.Bath[is.na(Housing$Bsmt.Half.Bath)] <- 0
+Housing$BsmtFin.SF.1[is.na(Housing$BsmtFin.SF.1)] <- 0
+Housing$BsmtFin.SF.2[is.na(Housing$BsmtFin.SF.2)] <- 0
+Housing$Bsmt.Unf.SF[is.na(Housing$Bsmt.Unf.SF)] <- 0
+Housing$Total.Bsmt.SF[is.na(Housing$Total.Bsmt.SF)] <- 0
+```
+
+#### (4) Mas.Vnr.Area
+Mas.Vnr.Area 변수를 처리해보자,
+
 
 ### 2) Feature Selection
 
