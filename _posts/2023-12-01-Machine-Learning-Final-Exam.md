@@ -368,7 +368,7 @@ Housing$Total.Bsmt.SF[is.na(Housing$Total.Bsmt.SF)] <- 0
 #### (4) Mas.Vnr.Area
 Mas.Vnr.Area 변수를 처리해보자,
 
-
+으아아아아아 커밋용이다아
 ### 2) Feature Selection
 
 ### 3) Data Transforms
