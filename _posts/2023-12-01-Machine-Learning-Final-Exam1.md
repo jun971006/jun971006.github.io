@@ -1,5 +1,5 @@
 ---
-title:  "[BigData] 머신러닝 - Kaggle - Iowa Housing Dataset 분석"
+title:  "[BigData] 머신러닝 - Kaggle - Iowa Housing Dataset 분석1"
 
 categories:
   - BigData
@@ -373,31 +373,7 @@ Mas.Vnr.Area 변수를 처리해보자,
 
 ### 3) Data Transforms
 
-## 4. Evaluate Algorithms
+to be continue...
+> [다음글 보기](https://jun971006.github.io/bigdata/Machine-Learning-Final-Exam2)
 
-### 1) Test options and Evaluation metric
-
-### 2) Spot-Check Algorithms
-
-### 3) Compare Algorithms
-
-
-## 5. Improve Accuracy
-
-### 1) Algorithm Tuning
-
-### 2) Ensembles
-
-
-## 6. Finalize Model
-
-### 1) Predictions on validation dataset
-
-### 2) Create standalone model on entire training dataset
-
-### 3) Save model for later use
-
-## Pre-processing
-
-
-\
+<hr>
