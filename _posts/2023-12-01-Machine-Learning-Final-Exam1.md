@@ -368,7 +368,22 @@ Housing$Total.Bsmt.SF[is.na(Housing$Total.Bsmt.SF)] <- 0
 #### (4) Mas.Vnr.Area
 Mas.Vnr.Area 변수를 처리해보자,
 
-으아아아아아 커밋용이다아
+- 해당하는 row의 type을 None으로 대체해준다.
+
+```r
+Housing$Mas.Vnr.Type[which(Housing$Mas.Vnr.Type == '')] <- 'None'
+```
+
+- 이 변수는 재료의 타입을 가지고 있고, 재료별로 SalePrice의 분포가 차등하다.
+
+```r
+ggplot(Housing, aes(x = Mas.Vnr.Type, y = SalePrice)) + # ggplot으로 막대 그래프 생성
+  geom_bar(stat = 'summary', fill = "#8da0cb") + # 요약 통계
+  scale_y_continuous(breaks = seq(0, 400000, by = 100000), labels = comma) + # y축 구분선을 표현합니다. 0 ~ 800000
+  geom_label(stat = 'count', aes(label = ..count.., y = ..count..)) # 관측치의 개수를 표현합니다.
+```
+
+
 ### 2) Feature Selection
 
 ### 3) Data Transforms
