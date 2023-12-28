@@ -383,8 +383,56 @@ ggplot(Housing, aes(x = Mas.Vnr.Type, y = SalePrice)) + # ggplot으로 막대 �
   geom_label(stat = 'count', aes(label = ..count.., y = ..count..)) # 관측치의 개수를 표현합니다.
 ```
 
+여기까지 변수들의 결측치를 처리해봤으니, 분석에 사용할 변수를 선택해보자.
 
 ### 2) Feature Selection
+변수를 선택하는 방법은 정말 다양하지만, 그 중에서 성능이 가장 좋았던 방법 몇 가지만 정리해보려고 한다.
+
+- 우선 변수를 선택하기 전에 8:2로 학습용 데이터셋과 검증용 데이터셋으로 데이터를 나눠주자.
+  - 여기서 데이터셋으로 사용되는 Housing_pre 데이터 프레임은 전처리가 완료된 Housing 데이터 프레임을 의미한다.
+
+```r
+# ★ 결측치 처리 후 Train, Validation 데이터 나누기 ★  
+# numeric, factor형으로 데이터를 나눈다.
+Housing_num <- Housing_pre[sapply(Housing_pre, is.numeric)]
+Housing_fac <- Housing_pre[sapply(Housing_pre, is.factor)]
+
+# numeric 데이터 - Train, Validate 데이터 프레임 나누기 - length(52)
+set.seed(7)
+num_trainIndex <- createDataPartition(Housing_num$SalePrice, p = .8, list = FALSE, times = 1)
+
+trainset_num <- Housing_num[num_trainIndex,]
+validationset_num <- Housing_num[-num_trainIndex,]
+
+dim(trainset_num)      # 2346 by 52
+dim(validationset_num) # 584 by 52
+```
+
+#### (1) Correlation > 0.5
+
+- 첫 변수 선택 아이디어로는 변수간 상관계수 값이 0.5보다 큰 경우에만 선택해준다.
+
+```r
+# SalePrice와 상관관계 높은 변수 찾기
+train_cor_numVar <- cor(trainset_num, use='pairwise.complete.obs') # 모든 Integer 변수의 상관 계수를 구한다.
+
+# 상관계수 데이터에서 SalePrice 행을 추출한 후 
+# sort함수로 정렬해준 뒤 as.matrix함수를 통해 행렬로 변환한다.
+train_cor_sorted <- as.matrix(sort(train_cor_numVar[, 'SalePrice'], decreasing = TRUE)) 
+
+# 상관 계수가 큰 변수만을 선택
+train_CorHigh <- names(which(apply(train_cor_sorted, 1, function(x) abs(x) > 0.5))) # 정렬된 행렬에서 요소의 값이 0.6이상인 변수명만 저장한다.
+train_cor_numVar <- train_cor_numVar[train_CorHigh, train_CorHigh] # 위에서 찾은 상관계수가 높은 변수만 가지고 행렬을 만든다.
+
+corrplot.mixed(train_cor_numVar,   # corrplot 함수를 사용해서 변수들 간의 상관관계 플롯을 생성합니다. 
+               tl.col = 'black',   # 변수명의 색은 검정색
+               tl.pos = 'lt',      # 변수의 이름은 왼쪽에 표시합니다.
+               number.cex = 0.6)   # 플롯 내부 상관계수의 글씨크기를 설정합니다.
+
+```
+
+- 상관계수 확인 결과 종속변수인 SalePrice와 14개의 독립변수, 총 15개의 변수를 선택해서 분석을 진행해보자..!
+
 
 ### 3) Data Transforms
 
