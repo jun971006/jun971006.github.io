@@ -15,8 +15,22 @@ This is my About Page
 
 
 ## Who I am?
-
-
+Airforce captain serving as an intelligence officer
 
 ## What am I Doing?
-### 2022
+'20.4. ~ '22.7. Mission SW Developer<br/>
+'22.8. ~ '24.2. Malware Analysist
+
+## What Skills do i have?
+1. SW
+- Spring
+- Spring boot
+- Python
+- C++
+
+2. Malware Analysis
+- IDA Pro
+- x32/64dbg
+- hwp, doc, docx, pdf, ...
+- dll, exe, 
+- chm, scr, lnk
