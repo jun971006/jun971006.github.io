@@ -77,6 +77,14 @@ toc() # 끝 시간 재보기
 
 ### 3) Compare Algorithms
 
+```r
+results_rf_num_cor <- resamples(list(LM=fit.lm_rf_num_cor, GLM = fit.glm_rf_num_cor,
+                                 SVM = fit.svm_rf_num_cor, KNN = fit.knn_rf_num_cor))
+summary(results_rf_num_cor)
+par(mfrow = c(1,3))
+scales <- list(x=list(relation = "free"), y=list(relation="free"))
+dotplot(results_rf_num_cor, scales = scales)
+```
 
 ## 5. Improve Accuracy
 
