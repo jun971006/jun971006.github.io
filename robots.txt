@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jun971006.github.io/sitemap.xml
