@@ -9,6 +9,8 @@ tags:
 
 last_modified_at: 2024-03-11T01:16:00-05:00
 
+published: false
+
 toc: true
 toc_sticky: true
 toc_label: "목차"
@@ -30,3 +32,14 @@ Keyensian 후기 자본주의, 2008 금융 위기 이후
 - 멀리있을수록 공감하기 어려움
 
 Impartial Spectator - 관찰자
+
+#### 플랫폼
+
+- 장점 : 규모, 범위
+- 단점 : Gig economy
+
+#### Alfred Marshall
+
+- 미시경제학 창시자
+- 한계이론 정립
+

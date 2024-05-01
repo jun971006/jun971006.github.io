@@ -20,13 +20,16 @@ Airforce captain serving as an intelligence officer
 ## What am I Doing?
 '20.4. ~ '22.7. Mission SW Developer<br/>
 '22.8. ~ '24.2. Malware Analysist
+'23.3. ~  Soongsil University Information Science Postgraduate student(Software Engineering)
+
 
 ## What Skills do i have?
 1. SW
-- Spring
+- JAVA
 - Spring boot
-- Python
 - C++
+- Python
+
 
 2. Malware Analysis
 - IDA Pro
