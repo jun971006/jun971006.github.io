@@ -9,13 +9,13 @@ tags:
 
 last_modified_at: 2024-03-06T01:16:00-05:00
 
+published: false
+
 toc: true
 toc_sticky: true
 toc_label: "목차"
 classes: wide
 ---
-
-
 ### 1주차
 
 근본적으로 생성..? 발생
@@ -140,8 +140,6 @@ CNN : 이안 굿펠로우
 - 공적분 관계(Cointegration) = 동행관계
   -> 선형결합을 했을 때 Stationary한 시계열이 되는 관계
 
-
-
 - p14. 그레인저 - 선후관계(선행 - 후행)
   -> 시차를 두고
 
@@ -178,5 +176,78 @@ CNN : 이안 굿펠로우
 
 
 
+### 기말 고사
+
+#### 9주차
+- Attention 모델
+  - 어디에 집중? 이 핵심
+  - 왜 쓰지? Interpretability 
+    - 각 입력에 대해 중점을 둘 수 있음
+  - 매우 긴 문장 -> Attention 씀
+    (Long Range Dependency 문제 핸들 가능)
+  - QKV -> query - key - value가 중요
+
+#### 10주차
+- GPT (문제 많이 나옴)
+  - Transformer 기반 알고리즘
+    - 내부적으로 Attention 쓰인다. (핵심)
+  - Generative Model이다. (핵심)
+    - Explicit, Implicit으로 나뉜다.
+  - GPT는 Explicit -> 데이터의 분포를 알아야함
+  - p16 - 가장 중요
+    - 언어의 분포를 정의(추정)한다.
+    - 앞에 단어들이 주어졌을 때, 바로 뒤에 올 단어가 주어질 확률
+    - 앞 문맥을 통해 뒤 단어의 확률 계산
+  - GPT1에서 바뀐게 많이 없고, 모델의 크기만 키운것..
 
 
+#### 11주차
+- BERT
+  - Bidirectional이 핵심
+  - p7 - 가장 중요
+    - GPT는 앞에만 봄
+    - 왜 양방향 안봄? 힘듦
+      - 양방향 수식을 정의하기 어려움
+    - BERT는 Implicit 모델
+  - MLM (Masked Language Model)
+    - Bidirectional
+    
+- Electra 
+  - MLM중에 가장 고도화된 모델
+  - p8 - 실험 결과가 가장 중요
+    - GPT랑 비교했을 때 
+      - 같은 파라미터 대비 성능이 좋음
+
+#### 
+- Signal 은 안함
+
+####
+- Stable Diffusion
+  - 어떤것을 가정하느냐
+  - p16 - 중요
+    - 노이즈로부터 데이터를 만드는건 쉽다.
+      - 그게 generative modeling 이다.
+
+  - Diffusion models
+    - 자연계 데이터 = x + 정규분포(노이즈)
+      - 노이즈의 분포는 정의할 수 있다. = 정규분포
+      - 더하고 빼면서 원본 데이터를 가질 수 있다.
+      - Im, Ex 중간에 있는 모델이다.
+
+####
+- Prompt Engineering
+  - Decoding Strategies가 중요
+    - 생성모델은 확률값을 구하는 것 = 샘플링
+    - 확률값을 높이는 것 = 프롬프트 엔지니어링의 본질
+  - p18이 가장 중요
+
+####
+- Lang Chain 
+  - p12
+    - 따로따로 만드는게 좋음
+    - 원하는 답을 내놓게 하는것이 중요
+      - ex) 번역 전문가 + 보고서 전문가
+        - 각각의 체인을 만들어서 수행하면 Task가 쉬워짐
+          - 모델이 작더라도 결합해서 사용하면 충분히 좋음
+        
+    

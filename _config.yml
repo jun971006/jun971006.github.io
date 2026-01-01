@@ -109,7 +109,7 @@ author:
   bio              : "**일단 적어놓자, 쓸데가 있겠지..**"
   location         : "Republic of Korea"
   links:
-    - label: "Postgraduate student"
+    - label: "SW Developer"
       icon: "fas fa-fw fa-user"
       url: "#"
     - label: "Email"
